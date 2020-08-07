@@ -1,20 +1,24 @@
 import Vue from 'vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
+
 import App from './App.vue'
-import { routes } from './routes'
-import { store } from './store/store';
+import { routes } from './routes';
+import store from './store/store';
 
-Vue.use(BootstrapVue)
 Vue.use(VueRouter);
+Vue.use(VueResource);
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.http.options.root = 'https://vuejs-stock-trader.firebaseio.com/';
+
+Vue.filter('currency', (value) => {
+    return '$' + value.toLocaleString();
+});
 
 const router = new VueRouter({
+    mode: 'history',
     routes
-
-})
+});
 
 new Vue({
     el: '#app',
