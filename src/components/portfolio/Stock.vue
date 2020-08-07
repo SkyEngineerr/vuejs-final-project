@@ -21,7 +21,7 @@
                     <button
                             class="btn btn-success"
                             @click="sellStock"
-                            :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)"
+                            :disabled="insufficientQuantity || quantity <= 0"
                     >{{ insufficientQuantity ? 'Not enough' : 'Sell' }}
                     </button>
                 </div>
@@ -43,7 +43,10 @@
         props: ['stock'],
         data() {
             return {
-                quantity: 0
+                quantity: {
+                    type: Number,
+                    default:0
+                }
             }
         },
         computed: {
@@ -64,6 +67,10 @@
                 this.placeSellOrder(order);
                 this.quantity = 0;
             }
-        }
+        },
+
+        updated() {
+            console.log(this.quantity, typeof quantity);
+        },
     }
 </script>
